@@ -66,12 +66,12 @@ const Banner = () => {
                         width={500}
                         height={450}
                         className="
-              w-[220px]
+              w-55
               object-contain
-              sm:w-[260px]
-              md:w-[300px]
-              lg:w-[350px]
-              xl:w-[390px]
+              sm:w-65
+              md:w-75
+              lg:w-87.5
+              xl:w-97.5
             "
                     />
                 </div>
