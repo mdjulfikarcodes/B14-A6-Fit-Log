@@ -2,8 +2,7 @@ import { Workout } from "@/types/workout";
 import WorkoutCard from "@/components/shared/WorkoutCard";
 
 const getLibrary = async (): Promise<Workout[]> => {
-  const response = await fetch(
-    "https://api.abcz.workers.dev/api/fitlog",
+  const response = await fetch("https://api.abcz.workers.dev/api/fitlog",
     {
       cache: "no-store",
     }
@@ -12,7 +11,6 @@ const getLibrary = async (): Promise<Workout[]> => {
   if (!response.ok) {
     throw new Error("Failed to fetch workout data");
   }
-
   return response.json();
 };
 
@@ -22,8 +20,7 @@ const Thelibrary = async () => {
   return (
     <section
       id="library"
-      className="px-4 py-8 sm:px-6 md:px-8 lg:px-10 lg:py-10"
-    >
+      className="px-4 py-8 sm:px-6 md:px-8 lg:px-10 lg:py-10">
       <div>
         {/* Section Header */}
         <div className="mb-8">
@@ -44,14 +41,11 @@ const Thelibrary = async () => {
             gap-6
             sm:grid-cols-2
             lg:grid-cols-3
-            xl:grid-cols-3
-          "
-        >
+            xl:grid-cols-3">
           {libraryData.map((workout) => (
             <WorkoutCard
               key={workout.id}
-              workout={workout}
-            />
+              workout={workout} />
           ))}
         </div>
       </div>

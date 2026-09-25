@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Workout } from "@/types/workout";
+import { IoTimeOutline } from "react-icons/io5";
+import { FaFireFlameCurved, FaRegStar } from "react-icons/fa6";
 
 interface WorkoutCardProps {
   workout: Workout;
@@ -16,8 +18,7 @@ const WorkoutCard = ({ workout }: WorkoutCardProps) => {
             alt={workout.name}
             fill
             unoptimized
-            className="object-cover"
-          />
+            className="object-cover" />
         </div>
 
         <div className="p-4">
@@ -25,8 +26,7 @@ const WorkoutCard = ({ workout }: WorkoutCardProps) => {
             {workout.muscleGroups.map((group) => (
               <span
                 key={group}
-                className="rounded-full bg-[#b6ff00] px-3 py-1 text-[10px] font-bold uppercase text-black"
-              >
+                className="rounded-full bg-[#b6ff00] px-3 py-1 text-[10px] font-bold uppercase text-black">
                 {group}
               </span>
             ))}
@@ -42,10 +42,13 @@ const WorkoutCard = ({ workout }: WorkoutCardProps) => {
 
           <div className="my-4 h-px bg-[#292d35]" />
 
-          <div className="flex items-center justify-between text-xs text-gray-400">
-            <span>◷ {workout.duration} min</span>
-            <span>♟ {workout.caloriesBurned} kcal</span>
-            <span>☆ {workout.rating}</span>
+          <div className="flex items-center gap-5 text-sm text-gray-400">
+            <span className="flex items-center gap-1 px-5 py-3">
+              <IoTimeOutline /> {workout.duration} min</span>
+            <span className="flex items-center gap-1 px-5 py-3">
+              <FaFireFlameCurved />{workout.caloriesBurned} kcal</span>
+            <span className="flex items-center gap-1 px-5 py-3">
+              <FaRegStar />{workout.rating}</span>
           </div>
         </div>
       </div>

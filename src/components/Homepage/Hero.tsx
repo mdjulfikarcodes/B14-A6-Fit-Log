@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Bebas_Neue, Inter } from "next/font/google";
-
 import heroImg from "@/assets/banner.png";
 
 const bebasNeue = Bebas_Neue({
@@ -18,7 +17,7 @@ const Hero = () => {
     <section className={`${inter.className} px-4 py-10 sm:px-6 md:px-8 lg:px-10 lg:py-10`}>
       <div className="flex flex-col overflow-hidden py-10 rounded-2xl border border-[#292d35] bg-[#15171e] lg:min-h-91.25 lg:flex-row">
 
-        {/* ================= LEFT CONTENT ================= */}
+        {/* LEFT CONTENT */}
         <div className="flex w-full flex-col justify-center px-6 py-10 sm:px-8 md:px-10 lg:w-[60%] lg:px-12 lg:py-12">
 
           {/* Small Heading */}
@@ -28,9 +27,8 @@ const Hero = () => {
 
           {/* Main Heading */}
           <h1
-            className={`${bebasNeue.className} max-w-2xl text-[42px] uppercase leading-[0.92] text-white sm:text-[50px] md:text-[56px] lg:text-[60px] xl:text-[64px]`}
-          >
-            Train With Intent. Log Every Set.
+            className={`${bebasNeue.className} max-w-2xl text-[42px] uppercase leading-[0.92] text-white sm:text-[50px] md:text-[56px] lg:text-[60px] xl:text-[64px]`}>
+            Train With Intent. Log <br />Every Set.
           </h1>
 
           {/* Description */}
@@ -59,11 +57,9 @@ const Hero = () => {
                 duration-200
                 hover:bg-[#c8ff33]
                 hover:shadow-[0_0_25px_rgba(182,255,0,0.18)]
-                active:scale-95
-              "
-            >
+                active:scale-95">
               Browse Workouts
-              <span className="text-lg leading-none">→</span>
+              <span className="text-lg leading-none"></span>
             </Link>
           </div>
         </div>
@@ -82,9 +78,7 @@ const Hero = () => {
               sm:w-65
               md:w-75
               lg:w-87.5
-              xl:w-97.5
-            "
-          />
+              xl:w-97.5"/>
         </div>
       </div>
     </section>

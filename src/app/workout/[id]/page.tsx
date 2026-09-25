@@ -1,46 +1,29 @@
 import Image from "next/image";
 import WorkoutActions from "@/components/shared/WorkoutActions";
-
 import { notFound } from "next/navigation";
-
 import { Workout } from "@/types/workout";
-
 interface WorkoutDetailsPageProps {
 
     params: Promise<{
-
         id: string;
-
     }>;
-
 }
 
 const getWorkout = async (id: string): Promise<Workout | null> => {
-
     const response = await fetch("https://api.abcz.workers.dev/api/fitlog",
         {
             cache: "no-store",
         }
     );
-
     if (!response.ok) {
-
         return null;
     }
     const workouts: Workout[] = await response.json();
-
     return workouts.find((workout) => String(workout.id) === String(id)) ?? null;
-
 };
 
-const WorkoutDetailsPage = async ({
-
-    params,
-
-}: WorkoutDetailsPageProps) => {
-
+const WorkoutDetailsPage = async ({ params, }: WorkoutDetailsPageProps) => {
     const { id } = await params;
-
     const workout = await getWorkout(id);
 
     if (!workout) {
@@ -58,9 +41,9 @@ const WorkoutDetailsPage = async ({
                             alt={workout.name}
                             fill
                             unoptimized
-                            className="object-cover"/>
+                            className="object-cover" />
                     </div>
-                    
+
                     {/* RIGHT - DETAILS */}
                     <div className="flex flex-col">
                         {/* TITLE */}
@@ -70,7 +53,7 @@ const WorkoutDetailsPage = async ({
 
                         {/* DESCRIPTION */}
                         <p className="mt-2 text-sm leading-5 text-gray-400">
-                           {workout.description}
+                            {workout.description}
                         </p>
 
                         {/* MUSCLE GROUPS */}
@@ -96,7 +79,7 @@ const WorkoutDetailsPage = async ({
                             </div>
                             <div className="flex items-center justify-between border-b border-[#252932] px-3 py-3">
                                 <span className="text-[9px] font-semibold uppercase tracking-wider text-gray-500">
-                                 Difficulty
+                                    Difficulty
                                 </span>
                                 <span className="text-xs text-gray-300">
                                     {workout.difficulty}
@@ -104,10 +87,10 @@ const WorkoutDetailsPage = async ({
                             </div>
                             <div className="flex items-center justify-between border-b border-[#252932] px-3 py-3">
                                 <span className="text-[9px] font-semibold uppercase tracking-wider text-gray-500">
-                                 Sets
+                                    Sets
                                 </span>
                                 <span className="text-xs text-gray-300">
-                                   {workout.sets}
+                                    {workout.sets}
                                 </span>
                             </div>
                             <div className="flex items-center justify-between border-b border-[#252932] px-3 py-3">
@@ -123,7 +106,7 @@ const WorkoutDetailsPage = async ({
                                     Duration
                                 </span>
                                 <span className="text-xs text-gray-300">
-                                   {workout.duration} min
+                                    {workout.duration} min
                                 </span>
                             </div>
                             <div className="flex items-center justify-between border-b border-[#252932] px-3 py-3">
@@ -152,11 +135,11 @@ const WorkoutDetailsPage = async ({
                             <ol className="mt-3 space-y-2">
                                 {workout.instructions?.map((instruction, index) => (
                                     <li
-                                      key={index}
+                                        key={index}
                                         className="flex gap-3 text-xs leading-5 text-gray-400">
                                         <span className="shrink-0 text-gray-500">
                                             {index + 1}.
-                                       </span>
+                                        </span>
                                         <span>{instruction}</span>
                                     </li>
                                 ))}
@@ -170,7 +153,7 @@ const WorkoutDetailsPage = async ({
                     </div>
                 </div>
             </div>
-      </main>
+        </main>
 
     );
 

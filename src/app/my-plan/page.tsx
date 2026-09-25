@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-
 import PlanCard from "@/components/shared/PlanCard";
 import { useFitLog } from "@/context/FitLogContext";
+
 
 type SortOption = "duration" | "calories" | "rating";
 type Tab = "plan" | "saved";
@@ -14,7 +14,6 @@ export default function MyPlanPage() {
     plan,
     saved,
   } = useFitLog();
-
   const [activeTab, setActiveTab] = useState<Tab>("plan");
   const [sortBy, setSortBy] = useState<SortOption>("duration");
 
@@ -25,15 +24,12 @@ export default function MyPlanPage() {
       if (sortBy === "duration") {
         return a.duration - b.duration;
       }
-
       if (sortBy === "calories") {
         return a.caloriesBurned - b.caloriesBurned;
       }
-
       if (sortBy === "rating") {
         return b.rating - a.rating;
       }
-
       return 0;
     });
   }, [activeList, sortBy]);
@@ -42,7 +38,6 @@ export default function MyPlanPage() {
     (total, workout) => total + workout.duration,
     0
   );
-
   const totalCalories = plan.reduce(
     (total, workout) => total + workout.caloriesBurned,
     0
@@ -50,13 +45,12 @@ export default function MyPlanPage() {
 
   return (
     <main className="min-h-screen bg-[#0d0f12] px-4 py-8 text-white sm:px-6 lg:px-8 lg:py-10">
-      <div className="mx-auto w-full max-w-295">
+      <div className=" w-full ">
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-3xl font-black uppercase tracking-tight text-white sm:text-4xl">
             MY PLAN
           </h1>
-
           <p className="mt-1 text-xs text-gray-500">
             Cap of five lifts for today. Finish them, then load more.
           </p>
@@ -105,24 +99,21 @@ export default function MyPlanPage() {
             <button
               type="button"
               onClick={() => setActiveTab("plan")}
-              className={`rounded-md px-4 py-2 text-[10px] font-medium transition ${
-                activeTab === "plan"
+              className={`rounded-md px-4 py-2 text-[10px] font-medium transition ${activeTab === "plan"
                   ? "bg-[#20252d] text-white"
                   : "text-gray-500 hover:bg-transparent"
-              }`}
+                }`}
             >
-              Today s Plan
+              Today&apos;s Plan
             </button>
 
             <button
               type="button"
               onClick={() => setActiveTab("saved")}
-              className={`rounded-md px-4 py-2 text-[10px] font-medium transition ${
-                activeTab === "saved"
+              className={`rounded-md px-4 py-2 text-[10px] font-medium transition ${activeTab === "saved"
                   ? "bg-[#20252d] text-white"
                   : "text-gray-500 hover:bg-transparent"
-              }`}
-            >
+                }`}>
               Saved
             </button>
           </div>
