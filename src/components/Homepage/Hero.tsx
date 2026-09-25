@@ -13,7 +13,7 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const Banner = () => {
+const Hero = () => {
   return (
     <section className={`${inter.className} px-4 py-10 sm:px-6 md:px-8 lg:px-10 lg:py-10`}>
       <div className="flex flex-col overflow-hidden py-10 rounded-2xl border border-[#292d35] bg-[#15171e] lg:min-h-91.25 lg:flex-row">
@@ -42,7 +42,7 @@ const Banner = () => {
           {/* Button */}
           <div className="mt-6">
             <Link
-              href="/workouts"
+              href="/"
               className="
                 inline-flex
                 items-center
@@ -91,4 +91,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default Hero;
