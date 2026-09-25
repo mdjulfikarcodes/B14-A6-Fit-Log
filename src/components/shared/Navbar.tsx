@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import { useFitLog } from "@/context/FitLogContext";
 import logo from "@/assets/logo.png";
 
 const Navbar = () => {
@@ -11,6 +11,8 @@ const Navbar = () => {
 
 const isWorkoutsActive = pathname === "/";
 const isMyPlanActive = pathname === "/my-plan";
+
+const { plan, saved } = useFitLog();
 
   return (
     <nav className="bg-black shadow-sm">
@@ -35,7 +37,7 @@ const isMyPlanActive = pathname === "/my-plan";
                   className={isWorkoutsActive ? "bg-lime-950 rounded-3xl text-[#CCFF00] font-bold"
                     : "text-gray-400 hover:bg-transparent"}
                 >
-                  Workouts
+                  Workout
                 </Link>
               </li>
 
@@ -67,7 +69,7 @@ const isMyPlanActive = pathname === "/my-plan";
                     : "text-gray-400 hover:bg-transparent"
                 }
               >
-                Workouts
+                Workout
               </Link>
             </li>
 
@@ -90,13 +92,13 @@ const isMyPlanActive = pathname === "/my-plan";
           <button className="flex items-center gap-3 text-0.5xl font-semibold cursor-pointer text-[#a5a7ad]">
             Plan <span
             className="flex h-7 w-7 items-center justify-center rounded-full bg-[#CCFF00] text-[18px] font-bold text-black"
-            >0</span>
+            >{plan.length}</span>
           </button>
 
           <button className="flex items-center gap-3 text-0.5xl font-semibold cursor-pointer text-[#a5a7ad]">
             Saved <span
             className="flex h-7 w-7 items-center justify-center rounded-full  text-[18px] font-bold text-white border"
-            >0</span>
+            >{saved.length}</span>
           </button>
         </div>
       </div>
