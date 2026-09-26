@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Workout } from "@/types/workout";
@@ -14,13 +15,11 @@ interface FitLogContextType {
   plan: Workout[];
   saved: Workout[];
   doneIds: number[];
-
+  isLoaded: boolean;
   addToPlan: (workout: Workout) => void;
   saveWorkout: (workout: Workout) => void;
-
   removeFromPlan: (id: number) => void;
   removeFromSaved: (id: number) => void;
-
   markAsDone: (id: number) => void;
 }
 
@@ -36,58 +35,100 @@ export function FitLogProvider({
   const [plan, setPlan] = useState<Workout[]>([]);
   const [saved, setSaved] = useState<Workout[]>([]);
   const [doneIds, setDoneIds] = useState<number[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load data from localStorage
+// Load data from localStorage
+  
+
   useEffect(() => {
-    try {
-      const storedPlan = localStorage.getItem("fitlog-plan");
-      const storedSaved = localStorage.getItem("fitlog-saved");
-      const storedDone = localStorage.getItem("fitlog-done");
+    const loadData = () => {
+      try {
+        const storedPlan = localStorage.getItem("fitlog-plan");
+        const storedSaved = localStorage.getItem("fitlog-saved");
+        const storedDone = localStorage.getItem("fitlog-done");
 
-      if (storedPlan) {
-        setPlan(JSON.parse(storedPlan));
-      }
+        if (storedPlan) {
+          setPlan(JSON.parse(storedPlan));
+        }
 
-      if (storedSaved) {
-        setSaved(JSON.parse(storedSaved));
-      }
+        if (storedSaved) {
+          setSaved(JSON.parse(storedSaved));
+        }
 
-      if (storedDone) {
-        setDoneIds(JSON.parse(storedDone));
+        if (storedDone) {
+          setDoneIds(JSON.parse(storedDone));
+        }
+      } catch (error) {
+        console.error("Failed to load FitLog data:", error);
+
+        localStorage.removeItem("fitlog-plan");
+        localStorage.removeItem("fitlog-saved");
+        localStorage.removeItem("fitlog-done");
+      } finally {
+        setIsLoaded(true);
       }
-    } catch {
-      localStorage.removeItem("fitlog-plan");
-      localStorage.removeItem("fitlog-saved");
-      localStorage.removeItem("fitlog-done");
-    }
+    };
+
+    const timer = setTimeout(loadData, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  // Save plan
-  useEffect(() => {
-    localStorage.setItem("fitlog-plan", JSON.stringify(plan));
-  }, [plan]);
+  // ==============================
+  // Save Plan
+  // ==============================
 
-  // Save saved workouts
   useEffect(() => {
-    localStorage.setItem("fitlog-saved", JSON.stringify(saved));
-  }, [saved]);
+    if (!isLoaded) return;
 
-  // Save completed workouts
+    localStorage.setItem(
+      "fitlog-plan",
+      JSON.stringify(plan)
+    );
+  }, [plan, isLoaded]);
+
+  // ==============================
+  // Save Saved Workouts
+  // ==============================
+
   useEffect(() => {
-    localStorage.setItem("fitlog-done", JSON.stringify(doneIds));
-  }, [doneIds]);
+    if (!isLoaded) return;
 
-  // Add workout to today's plan
+    localStorage.setItem(
+      "fitlog-saved",
+      JSON.stringify(saved)
+    );
+  }, [saved, isLoaded]);
+
+  // ==============================
+  // Save Completed Workouts
+  // ==============================
+
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    localStorage.setItem(
+      "fitlog-done",
+      JSON.stringify(doneIds)
+    );
+  }, [doneIds, isLoaded]);
+
+  // ==============================
+  // Add Workout to Today's Plan
+  // ==============================
+
   const addToPlan = (workout: Workout) => {
-    // Already added
     if (plan.some((item) => item.id === workout.id)) {
-      toast(`${workout.name} is already in today's plan.`);
+      toast(
+        `${workout.name} is already in today's plan.`
+      );
       return;
     }
 
-    // Maximum 5 workouts
     if (plan.length >= 5) {
-      toast.error("Today's plan is limited to 5 lifts.");
+      toast.error(
+        "Today's plan is limited to 5 lifts."
+      );
       return;
     }
 
@@ -96,19 +137,30 @@ export function FitLogProvider({
     toast.success("Added to today's plan");
   };
 
-  // Save workout
+  // ==============================
+  // Save Workout
+  // ==============================
+
   const saveWorkout = (workout: Workout) => {
-    if (saved.some((item) => item.id === workout.id)) {
+    if (
+      saved.some((item) => item.id === workout.id)
+    ) {
       toast(`${workout.name} is already saved.`);
       return;
     }
 
-    setSaved((current) => [...current, workout]);
+    setSaved((current) => [
+      ...current,
+      workout,
+    ]);
 
     toast.success("Saved for later");
   };
 
-  // Remove from today's plan
+  // ==============================
+  // Remove from Today's Plan
+  // ==============================
+
   const removeFromPlan = (id: number) => {
     setPlan((current) =>
       current.filter((item) => item.id !== id)
@@ -121,7 +173,10 @@ export function FitLogProvider({
     toast.success("Workout removed");
   };
 
-  // Remove from saved
+  // ==============================
+  // Remove from Saved
+  // ==============================
+
   const removeFromSaved = (id: number) => {
     setSaved((current) =>
       current.filter((item) => item.id !== id)
@@ -130,7 +185,10 @@ export function FitLogProvider({
     toast.success("Saved workout removed");
   };
 
-  // Mark workout as done
+  // ==============================
+  // Mark Workout as Done
+  // ==============================
+
   const markAsDone = (id: number) => {
     setDoneIds((current) =>
       current.includes(id)
@@ -147,6 +205,7 @@ export function FitLogProvider({
         plan,
         saved,
         doneIds,
+        isLoaded,
         addToPlan,
         saveWorkout,
         removeFromPlan,
@@ -170,3 +229,4 @@ export function useFitLog() {
 
   return context;
 }
+
