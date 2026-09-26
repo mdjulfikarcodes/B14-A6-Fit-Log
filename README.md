@@ -10,9 +10,9 @@ Built with **Next.js, TypeScript, Tailwind CSS, and React**, FitLog provides a c
 
 ## 🌐 Live Project
 
-**Live Website:** `Add your live URL here`
+**Live Website:** `https://b14-a6-fit-log-ecru.vercel.app/`
 
-**GitHub Repository:** `Add your GitHub repository URL here`
+**GitHub Repository:** `https://github.com/mdjulfikarcodes/B14-A6-Fit-Log`
 
 ---
 
